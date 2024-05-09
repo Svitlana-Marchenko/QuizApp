@@ -11,8 +11,6 @@ import (
 
 func main() {
 	fileName := flag.String("f", "quiz.csv", "file name to read quiz from")
-	timer := flag.Int("t", 300, "timer in seconds for the quiz")
-	flag.Parse()
 
 	problems, err := problemPuller(*fileName)
 	if err != nil {
@@ -30,6 +28,9 @@ func main() {
 			break
 		}
 	}
+
+	timer := flag.Int("t", quantity*5, "timer in seconds for the quiz")
+	flag.Parse()
 
 	problemList := getRandomProblems(quantity, problems)
 
@@ -60,9 +61,7 @@ problemLoop:
 			}
 		}
 	}
-
 	fmt.Printf("You scored %d out of %d\n", correctAnsw, len(problemList))
-	fmt.Println("Press enter to quit")
 }
 
 func problemPuller(filename string) ([]problem, error) {
